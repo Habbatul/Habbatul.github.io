@@ -23,7 +23,7 @@ function slugify(text) {
 async function run() {
     console.log("📡 Fetching articles...");
 
-    fs.mkdirSync("src/content", { recursive: true });
+    fs.mkdirSync("public/content", { recursive: true });
 
     let listOfArticles = [];
 
