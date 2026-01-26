@@ -3,6 +3,7 @@
     <About />
     <Education />
     <Experience />
+    <TechnicalProjects/>
     <BackendProjects /> 
     <ExplorationProjects />
   </div>
@@ -14,6 +15,7 @@ import Education from '../components/home/Education.vue';
 import Experience from '../components/home/Experience.vue';
 import BackendProjects from '../components/home/BackendProjects.vue';
 import ExplorationProjects from '../components/home/ExplorationProjects.vue';
+import TechnicalProjects from '../components/home/TechnicalProjects.vue';
 
 export default {
   name: 'Home',
@@ -21,6 +23,7 @@ export default {
     About,
     Education,
     Experience,
+    TechnicalProjects,
     BackendProjects,
     ExplorationProjects
   }

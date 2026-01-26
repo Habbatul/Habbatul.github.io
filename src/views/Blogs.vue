@@ -3,7 +3,8 @@
     <div class="flex flex-col items-center min-h-screen font-garamond">
       <PackageContainer 
         :guideFiles="guideFiles"
-        :articleFiles="articleFiles"
+        :sainsPylosophyFiles="sainsPylosophyFiles"
+        :compSciFiles="compSciFiles"
         :openFolders="openFolders"
         :selectedFile="selectedFile"
         @toggle-folder="toggleFolder"
@@ -31,14 +32,17 @@ export default {
   data() {
     return {
       openFolders: {
-        guide: true,
-        article: true
+        article: true, 
+        sains: false, 
+        compSci: false, 
+        guide: false
       },
       selectedFile: null,
       fileContent: '',
       loading: false,
       guideFiles: [],
-      articleFiles: []
+      sainsPylosophyFiles: [],
+      compSciFiles: [],
     }
   },
   async created() {
@@ -78,9 +82,7 @@ export default {
             download_url: file.download_url
           }));
           
-        this.articleFiles = [
-          { name: 'Belum Ada', path: 'no-article', download_url: '' }
-        ];
+
       } catch (error) {
         console.error('Error fetching repo contents:', error);
         this.guideFiles = [
@@ -90,10 +92,33 @@ export default {
             download_url: 'https://raw.githubusercontent.com/Habbatul/Guide-Documentation-NgulikPribadi/main/README.md'
           }
         ];
-        this.articleFiles = [
+      }
+      try {
+
+        const articleJson = await fetch('./src/content/articles.json');
+        const articlesContents = await articleJson.json();
+
+        this.sainsPylosophyFiles = articlesContents.filter(article => article.category === "SainsPylosophy").map( article => ({
+          name: article.title+" : "+article.date,                 
+          path: article.title,               
+          download_url: article.url,  
+        }));
+        
+        this.compSciFiles = articlesContents.filter(article => article.category === "CompSci").map(article => ({
+          name: article.title + " : " + article.date,
+          path: article.title,
+          download_url: article.url,
+        }));
+        
+    }catch(error){
+        this.sainsPylosophyFiles = [
           { name: 'Belum Ada', path: 'no-article', download_url: '' }
         ];
-      }
+        this.compSciFiles = [
+          { name: 'Belum Ada', path: 'no-article', download_url: '' }
+        ];
+    }
+
     }
   }
 }

@@ -2,7 +2,7 @@
     <!--file display-->
      <div class="border-t-2 w-full max-w-2xl border-black py-4 mb-5">
       <div v-if="selectedFile" class="mt-4">
-        <h3 class="font-mono text-lg mb-2">{{ selectedFile.name }}</h3>
+        <!-- <h3 class="font-mono text-lg mb-2">{{ selectedFile.name }}</h3> -->
         <div v-if="loading" class="text-center py-4">
           Loading...
         </div>
@@ -34,6 +34,15 @@ export default{
 </script>
 
 <style>
+.prose hr {
+  @apply my-6 mx-2 border-t border-black;
+}
+.prose img {
+  max-height: 350px;
+  object-fit: contain;
+  margin: 1rem auto;
+  text-justify: left;
+}
 /* buat styling markdown */
 .prose h1, .prose h2, .prose h3 {
   @apply mt-4 mb-2 font-bold;
@@ -41,7 +50,9 @@ export default{
 .prose h1 { @apply text-2xl; }
 .prose h2 { @apply text-xl; }
 .prose h3 { @apply text-lg; }
-.prose p { @apply my-2 text-lg leading-7; }
+.prose p {
+  @apply my-2 text-lg leading-7 text-justify;
+}
 .prose ul { @apply list-disc pl-5 pt-1; }
 .prose li { @apply pb-1; }
 .prose ol { @apply list-decimal pl-5; }
