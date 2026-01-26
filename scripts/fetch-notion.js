@@ -60,14 +60,14 @@ ${updateDate != null ? `Update Date: "${updateDate}"` : ''}
 `;
 
         fs.writeFileSync(
-            path.join("src/content", `${slug}.md`),
+            path.join("public/content", `${slug}.md`),
             frontmatter + md.parent
         );
 
         listOfArticles.push({
             title: title,
             date: publicationDate,
-            url: `./src/content/${slug}.md`,
+            url: `./content/${slug}.md`,
             category: category
         });
 
@@ -76,7 +76,7 @@ ${updateDate != null ? `Update Date: "${updateDate}"` : ''}
     }
 
     fs.writeFileSync(
-        path.join("src/content", "articles.json"),
+        path.join("public/content", "articles.json"),
         JSON.stringify(listOfArticles, null, 2) // null,2 buat rapi
     );
 }

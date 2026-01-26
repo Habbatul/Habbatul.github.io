@@ -95,7 +95,7 @@ export default {
       }
       try {
 
-        const articleJson = await fetch('./src/content/articles.json');
+        const articleJson = await fetch('./content/articles.json');
         const articlesContents = await articleJson.json();
 
         this.sainsPylosophyFiles = articlesContents.filter(article => article.category === "SainsPylosophy").map( article => ({
