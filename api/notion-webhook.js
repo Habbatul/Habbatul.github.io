@@ -40,12 +40,20 @@ export default async function handler(req, res) {
         const rawBody = await getRawBody(req);
         const signature = req.headers["x-notion-signature"];
 
+
+        const isSecretLoaded = !!NOTION_SECRET;
+        console.log(`🔑 NOTION_SECRET Loaded? ${isSecretLoaded} (Length: ${NOTION_SECRET ? NOTION_SECRET.length : 0})`);
+        console.log(`📨 Header 'x-notion-signature': ${signature || "MISSING"}`);
+
         // 2. Cek Validitas Signature (Security Check)
         // Jika NOTION_SECRET ada, kita WAJIB validasi. 
         if (NOTION_SECRET && signature) {
             const hmac = crypto.createHmac("sha256", NOTION_SECRET);
             const digest = "sha256=" + hmac.update(rawBody).digest("hex");
 
+            console.log(`🧮 Calculated Digest (Server): ${digest}`);
+            console.log(`🆚 Compare: ${digest === signature ? "MATCH ✅" : "MISMATCH ❌"}`);
+            
             // Gunakan timingSafeEqual untuk mencegah timing attacks
             const isValid = crypto.timingSafeEqual(
                 Buffer.from(signature),
@@ -58,6 +66,7 @@ export default async function handler(req, res) {
             }
         } else {
             console.warn("⚠️ Warning: Skipping signature validation (Missing secret or header)");
+            return res.status(200).json({ message: "Skipping signature validation (Missing secret or header)" });
         }
 
         // 3. Parse Raw Body ke JSON Object
