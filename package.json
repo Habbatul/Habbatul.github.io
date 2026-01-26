@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "fetch:notion": "node scripts/fetch-notion.js",
     "build": "vite build",
     "preview": "vite preview"
   },

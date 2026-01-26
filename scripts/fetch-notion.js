@@ -82,3 +82,5 @@ ${updateDate != null ? `Update Date: "${updateDate}"` : ''}
 }
 
 run().catch(console.error);
+
+export { run as fetchNotionArticles };
