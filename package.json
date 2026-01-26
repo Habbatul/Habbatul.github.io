@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "fetch:notion": "node scripts/fetch-notion.js",
-    "build": "vite build",
+    "build": "node scripts/fetch-notion.js && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
